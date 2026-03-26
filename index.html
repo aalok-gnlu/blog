@@ -193,11 +193,10 @@
             left: 100%;
         }
 
-        .social-link:hover {
-            background: var(--text-main);
-            color: var(--bg-color);
-            border-color: var(--text-main);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        .node.distant .node-inner {
+            filter: blur(8px) brightness(0.5);
+            opacity: 0.5;
+            pointer-events: none !important;
         }
 
         .instructions {
@@ -400,8 +399,11 @@
         /* Type: Post */
         .node.post {
             width: 360px;
-            padding: 2.5rem;
             margin-left: -180px;
+        }
+
+        .node.post .node-inner {
+            padding: 2.5rem;
         }
 
         .node.post .category {
@@ -426,6 +428,142 @@
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.4);
             font-weight: 500;
+        }
+
+        /* Type: Social and Project */
+        .node.social {
+            width: 320px;
+            margin-left: -160px;
+            text-align: center;
+        }
+
+        .node.project {
+            width: 380px;
+            margin-left: -190px;
+        }
+
+        .node.social .node-inner, .node.project .node-inner {
+            padding: 2.5rem;
+        }
+
+        .node.portal {
+            width: 260px;
+            height: 260px;
+            margin-top: -130px;
+            margin-left: -130px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .node.portal .node-inner {
+            background: rgba(20, 0, 50, 0.85);
+            border-color: var(--accent-secondary);
+            border-radius: 50% !important;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 40px rgba(176, 102, 255, 0.4);
+        }
+
+        .node.portal .node-inner.entered {
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, pulsePortal 3s infinite alternate 0.8s;
+            opacity: 1;
+        }
+
+        .project-preview {
+            width: 100%;
+            height: 180px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            pointer-events: none; /* Prevent iframe grabbing the clicks/scrolls */
+            background: #000;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.2rem;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .node.social:hover .social-icon {
+            transform: scale(1.2) translateY(-5px);
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .anim-float-1 { animation: floatIcon 3s ease-in-out infinite; }
+        .anim-float-2 { animation: floatIcon 2.5s ease-in-out infinite; }
+        .anim-float-3 { animation: floatIcon 3.5s ease-in-out infinite; }
+
+        .node.social h2, .node.project h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .node.social .category {
+            color: var(--text-muted);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .node.project .category {
+            color: #00ffaa;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* Type: Portal */
+        .node.portal {
+            width: 280px;
+            padding: 2.5rem;
+            margin-left: -140px;
+            text-align: center;
+        }
+
+        .node.portal .node-inner {
+            background: rgba(40, 0, 80, 0.5);
+            border-color: var(--accent-secondary);
+            animation: pulsePortal 3s infinite alternate;
+        }
+
+        @keyframes pulsePortal {
+            0% { box-shadow: 0 0 20px rgba(176, 102, 255, 0.2); transform: translateZ(0) scale(1); }
+            100% { box-shadow: 0 0 60px rgba(176, 102, 255, 0.8); transform: translateZ(0) scale(1.05); }
+        }
+
+        .node.portal h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .node.portal p {
+            color: var(--accent);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* Premium Modal Overlay */
@@ -604,6 +742,11 @@
                 padding: 2rem;
                 margin-left: -150px;
             }
+
+            .node.social, .node.project, .node.portal {
+                width: 280px;
+                margin-left: -140px;
+            }
         }
     </style>
 </head>
@@ -627,8 +770,6 @@
         <div class="profile-badge">
             <h1>Aalok Panday</h1>
             <p>Law Student at GNLU | Writer | Tech Enthusiast. Exploring the intersections of life, law, and code.</p>
-            <a href="https://www.linkedin.com/in/aalok-panday-7602b6233/" target="_blank" class="social-link">Connect on
-                LinkedIn</a>
         </div>
         <div class="instructions" id="instruction-toast">Drag to Rotate • Scroll/Pinch to Zoom • Tap Cards</div>
     </div>
@@ -657,35 +798,28 @@
         async function loadDynamicData() {
             const maxFilesToCheck = 50;
 
-            // 1. Fetch Posts dynamically
-            for (let i = 1; i <= maxFilesToCheck; i++) {
-                try {
-                    const response = await fetch(`posts/${i}.json`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        posts.push(data);
-                    }
-                } catch (error) {
-                    // Ignore and keep checking
-                }
-            }
+            // Fetch Posts dynamically concurrently
+            const postPromises = Array.from({ length: maxFilesToCheck }, (_, i) => 
+                fetch(`posts/${i + 1}.json`).then(res => res.ok ? res.json() : null).catch(() => null)
+            );
 
-            // 2. Fetch Memories dynamically
-            for (let i = 1; i <= maxFilesToCheck; i++) {
-                try {
-                    const txtResponse = await fetch(`pics/${i}.txt`);
-                    if (txtResponse.ok) {
-                        const text = await txtResponse.text();
-                        memories.push({
-                            id: i,
-                            pic: `pics/${i}.jpeg`,
-                            text: text
-                        });
+            // Fetch Memories dynamically concurrently
+            const memoryPromises = Array.from({ length: maxFilesToCheck }, (_, i) => 
+                fetch(`pics/${i + 1}.txt`).then(async res => {
+                    if (res.ok) {
+                        return { id: i + 1, pic: `pics/${i + 1}.jpeg`, text: await res.text() };
                     }
-                } catch (error) {
-                    // Ignore and keep checking
-                }
-            }
+                    return null;
+                }).catch(() => null)
+            );
+
+            const [postResults, memoryResults] = await Promise.all([
+                Promise.all(postPromises),
+                Promise.all(memoryPromises)
+            ]);
+
+            posts = postResults.filter(Boolean);
+            memories = memoryResults.filter(Boolean);
         }
 
         // --- CORE ENGINE ---
@@ -706,29 +840,122 @@
         const maxZoomIn = 800;
         const maxZoomOut = -3500;
 
-        // Spread nodes randomly in a 3D Spherical Cloud
+        // --- GALAXY NAVIGATION STATE ---
+        const galaxies = {
+            Posts: { x: 0, y: 0, z: 0 },
+            Pictures: { x: 15000, y: 0, z: 0 },
+            Social: { x: 0, y: 15000, z: 0 },
+            Projects: { x: 0, y: 0, z: 15000 }
+        };
+
+        let currentGx = 0, currentGy = 0, currentGz = 0;
+        let targetGx = 0, targetGy = 0, targetGz = 0;
+
+        function jumpToGalaxy(galaxyName) {
+            const g = galaxies[galaxyName];
+            if (!g) return;
+            
+            targetGx = g.x;
+            targetGy = g.y;
+            targetGz = g.z;
+            
+            // Zoom out temporarily for warp effect
+            const originalRotY = targetRotY;
+            targetZoom = maxZoomOut;
+            targetRotY += 45; // spin slightly during warp
+            
+            setTimeout(() => {
+                targetZoom = -1500;
+            }, 1000); // restore normal zoom
+        }
+
+        // --- GALAXY DATASOURCES ---
+        const mySocials = [
+            { platform: 'Instagram', title: '@aalokpanday2006', link: 'https://www.instagram.com/aalokpanday2006/', icon: 'instagram', anim: 'anim-float-1' },
+            { platform: 'WhatsApp', title: '+91 9322120946', link: 'https://wa.me/+919322120946/', icon: 'whatsapp', anim: 'anim-float-2' },
+            { platform: 'Telegram', title: '@o_oHeyo_o', link: 'https://t.me/o_oHeyo_o/', icon: 'telegram', anim: 'anim-float-3' },
+            { platform: 'LinkedIn', title: 'Aalok Panday', link: 'https://www.linkedin.com/in/aalok-panday-7602b6233/', icon: 'linkedin', anim: 'anim-float-1' },
+            { platform: 'Email', title: 'aalokpanday2020...', link: 'mailto:aalokpanday2020@gmail.com', icon: 'email', anim: 'anim-float-2' },
+            { platform: 'Phone', title: '+91 9322120946', link: 'tel:+919322120946', icon: 'phone', anim: 'anim-float-3' }
+        ];
+
+        const myProjects = [
+            { title: 'The Anagital Clock', link: 'https://beradiant.github.io/the-anagital-clock/' },
+            { title: 'Etheral Pomodoro', link: 'https://beradiant.github.io/etheral-pomodoro/' },
+            { title: 'Cosmic Oracle', link: 'https://beradiant.github.io/cosmic-oracle/' },
+            { title: 'Void and Vapor', link: 'https://beradiant.github.io/void-and-vapor/' },
+            { title: 'Etheral Mood Visualiser', link: 'https://beradiant.github.io/etheral-mood-visualiser/' }
+        ];
+
+        function getSocialIcon(type, animClass) {
+            if(type === 'instagram') return `<svg class="social-icon ${animClass}" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>`;
+            if(type === 'whatsapp') return `<svg class="social-icon ${animClass}" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+            if(type === 'telegram') return `<svg class="social-icon ${animClass}" viewBox="0 0 24 24"><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon><line x1="22" y1="2" x2="11" y2="13"></line></svg>`;
+            if(type === 'linkedin') return `<svg class="social-icon ${animClass}" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>`;
+            if(type === 'email') return `<svg class="social-icon ${animClass}" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`;
+            if(type === 'phone') return `<svg class="social-icon ${animClass}" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>`;
+            return '';
+        }
+
+        function getSocialColor(type) {
+            if(type === 'instagram') return '#E1306C';
+            if(type === 'whatsapp') return '#25D366';
+            if(type === 'telegram') return '#0088cc';
+            if(type === 'linkedin') return '#0077b5';
+            if(type === 'email') return '#ea4335';
+            if(type === 'phone') return '#34a853';
+            return '#fff';
+        }
+
+        // Spread nodes randomly in a 3D Spherical Cloud per Galaxy
         function createNodes() {
-            const items = [
-                ...memories.map(m => ({ type: 'memory', data: m })),
-                ...posts.map(p => ({ type: 'post', data: p }))
-            ];
+            const galaxyGroups = {
+                Posts: posts.map(p => ({ type: 'post', data: p })),
+                Pictures: memories.map(m => ({ type: 'memory', data: m })),
+                Social: mySocials.map(s => ({ type: 'social', data: s })),
+                Projects: myProjects.map(p => ({ type: 'project', data: p }))
+            };
 
-            items.sort(() => Math.random() - 0.5); // Shuffle
+            let staggerIndex = 0;
 
-            const cloudRadius = 1500;
+            Object.keys(galaxyGroups).forEach((gName) => {
+                const items = galaxyGroups[gName];
+                const center = galaxies[gName];
 
-            items.forEach((item, index) => {
-                const u = Math.random();
-                const v = Math.random();
-                const theta = u * 2.0 * Math.PI;
-                const phi = Math.acos(2.0 * v - 1.0);
+                // 1. Generate Portals in a fixed ring around the galaxy so they are highly visible
+                const otherGalaxies = Object.keys(galaxies).filter(k => k !== gName);
+                const portalRadius = 450;
+                otherGalaxies.forEach((dest, i) => {
+                    // Spread portals evenly in a circle on the X-Y plane
+                    const angle = (i / otherGalaxies.length) * Math.PI * 2;
+                    const x = center.x + Math.sin(angle) * portalRadius;
+                    const y = center.y + Math.cos(angle) * portalRadius;
+                    const z = center.z - 200; // slightly forward towards the camera
+                    
+                    createSingleNode({ type: 'portal', data: { dest } }, x, y, z);
+                });
 
-                const r = Math.pow(Math.random(), 0.5) * cloudRadius;
+                // 2. Generate random content nodes
+                const cloudRadius = 800;
+                items.sort(() => Math.random() - 0.5); // Shuffle local galaxy
 
-                const x = r * Math.sin(phi) * Math.cos(theta);
-                const y = r * Math.sin(phi) * Math.sin(theta);
-                const z = r * Math.cos(phi);
+                items.forEach((item) => {
+                    const u = Math.random();
+                    const v = Math.random();
+                    const theta = u * 2.0 * Math.PI;
+                    const phi = Math.acos(2.0 * v - 1.0);
 
+                    const r = Math.pow(Math.random(), 0.5) * cloudRadius;
+
+                    const lx = r * Math.sin(phi) * Math.cos(theta);
+                    const ly = r * Math.sin(phi) * Math.sin(theta);
+                    const lz = r * Math.cos(phi);
+
+                    createSingleNode(item, center.x + lx, center.y + ly, center.z + lz);
+                });
+            });
+
+            function createSingleNode(item, x, y, z) {
                 const el = document.createElement('div');
                 el.className = `node ${item.type}`;
 
@@ -743,21 +970,45 @@
                         <div class="meta">${item.data.text}</div>
                     `;
                     el.onclick = () => openMemory(item.data);
-                } else {
+                } else if (item.type === 'post') {
                     inner.innerHTML = `
                         <div class="category">${item.data.category}</div>
                         <h2>${item.data.title}</h2>
                         <div class="date">${item.data.date}</div>
                     `;
                     el.onclick = () => openPost(item.data);
+                } else if (item.type === 'social') {
+                    inner.innerHTML = `
+                        <div class="icon-wrapper" style="color: ${getSocialColor(item.data.icon)};">
+                            ${getSocialIcon(item.data.icon, item.data.anim)}
+                        </div>
+                        <div class="category">${item.data.platform}</div>
+                        <h2>${item.data.title}</h2>
+                    `;
+                    el.onclick = () => { if (!isDragThresholdPassed) window.open(item.data.link, '_blank'); };
+                } else if (item.type === 'project') {
+                    inner.innerHTML = `
+                        <iframe class="project-preview" src="${item.data.link}" tabindex="-1" title="${item.data.title}"></iframe>
+                        <div class="category">Interactive Preview</div>
+                        <h2>${item.data.title}</h2>
+                    `;
+                    el.onclick = () => { if (!isDragThresholdPassed) window.open(item.data.link, '_blank'); };
+                } else if (item.type === 'portal') {
+                    inner.innerHTML = `
+                        <h2>${item.data.dest}</h2>
+                        <p>Tap to Space Warp</p>
+                    `;
+                    el.onclick = () => {
+                        if (isDragThresholdPassed) return;
+                        jumpToGalaxy(item.data.dest);
+                    };
                 }
 
-                // 3D Parallax Tilt on Hover (Inside the node)
+                // 3D Parallax Tilt on Hover
                 el.addEventListener('mousemove', (e) => {
                     const rect = el.getBoundingClientRect();
                     const cx = e.clientX - rect.left - rect.width / 2;
                     const cy = e.clientY - rect.top - rect.height / 2;
-                    // Slightly scaled up on hover for premium feel
                     inner.style.transform = `rotateX(${-cy / 15}deg) rotateY(${cx / 15}deg) translateZ(40px) scale(1.05)`;
                 });
 
@@ -770,11 +1021,12 @@
 
                 nodesData.push({ el, inner, x, y, z });
 
-                // Staggered Entrance Animation Trigger
+                // Staggered Entrance Animation
                 setTimeout(() => {
                     inner.classList.add('entered');
-                }, 100 + (index * 60)); // 60ms delay between each card
-            });
+                }, 50 + (staggerIndex * 20));
+                staggerIndex++;
+            }
         }
 
         // --- ORBIT & ZOOM PHYSICS ---
@@ -786,17 +1038,45 @@
         let initialZoom = 0;
 
         function updatePhysics() {
-            // Smoothly interpolate rotations and zoom (lower values = heavier, smoother feel)
+            // Smooth interpolation
             currentRotX += (targetRotX - currentRotX) * 0.06;
             currentRotY += (targetRotY - currentRotY) * 0.06;
             currentZoom += (targetZoom - currentZoom) * 0.08;
+            
+            // Interpolate camera to target galaxy position
+            currentGx += (targetGx - currentGx) * 0.05;
+            currentGy += (targetGy - currentGy) * 0.05;
+            currentGz += (targetGz - currentGz) * 0.05;
 
-            // Apply transformations to the world
+            // Apply transformations to the world purely for zoom and orientation
             world.style.transform = `translateZ(${currentZoom}px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
 
-            // Billboarding: Make every node face the camera continuously
+            // Billboarding & Galaxy position offset
             nodesData.forEach(node => {
-                node.el.style.transform = `translate3d(${node.x}px, ${node.y}px, ${node.z}px) rotateY(${-currentRotY}deg) rotateX(${-currentRotX}deg)`;
+                const rx = node.x - currentGx;
+                const ry = node.y - currentGy;
+                const rz = node.z - currentGz;
+                
+                const distSq = rx*rx + ry*ry + rz*rz;
+                if (distSq > Math.pow(30000, 2)) {
+                    node.el.style.display = 'none';
+                } else {
+                    node.el.style.display = 'block';
+                    node.el.style.transform = `translate3d(${rx}px, ${ry}px, ${rz}px) rotateY(${-currentRotY}deg) rotateX(${-currentRotX}deg)`;
+                    
+                    // Add distant blur effect if outside active galaxy (radius > 5000)
+                    if (distSq > Math.pow(5000, 2)) {
+                        if (!node.isDistant) {
+                            node.el.classList.add('distant');
+                            node.isDistant = true;
+                        }
+                    } else {
+                        if (node.isDistant) {
+                            node.el.classList.remove('distant');
+                            node.isDistant = false;
+                        }
+                    }
+                }
             });
 
             requestAnimationFrame(updatePhysics);
